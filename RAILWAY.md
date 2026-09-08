@@ -56,6 +56,10 @@ In the frontend service, add:
 VITE_API_URL=https://<your-backend-domain>
 ```
 
+This variable is baked into the frontend during `npm run build`; changing it
+requires a frontend redeploy. Do not leave it as `http://localhost:4000` on
+Railway, because a deployed browser cannot reach your local computer.
+
 Use these commands if Railway does not detect them:
 
 ```text

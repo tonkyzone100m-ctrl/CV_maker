@@ -26,10 +26,19 @@ async function request(path, options = {}) {
     headers.set("Authorization", `Bearer ${token}`);
   }
 
-  const response = await fetch(`${API_URL}${path}`, {
-    ...options,
-    headers,
-  });
+  let response;
+  try {
+    response = await fetch(`${API_URL}${path}`, {
+      ...options,
+      headers,
+    });
+  } catch (error) {
+    console.error(`API request failed for ${API_URL}${path}:`, error);
+    throw new Error(
+      `Cannot reach the backend at ${API_URL}. Start the backend locally or set VITE_API_URL to its public HTTPS URL.`,
+      { cause: error }
+    );
+  }
 
   const body = await response.json().catch(() => null);
   if (!response.ok) {
