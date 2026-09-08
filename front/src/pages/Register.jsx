@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/auth";
+import BrandLogo from "../components/BrandLogo";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -61,11 +62,8 @@ export default function Register() {
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-6 py-10">
       <div className="w-full max-w-md rounded-2xl border bg-white p-8 shadow-xl">
         <div className="text-center">
-          <Link
-            to="/"
-            className="text-2xl font-bold text-blue-600"
-          >
-            CV Maker
+          <Link to="/" className="mx-auto block w-52">
+            <BrandLogo />
           </Link>
 
           <h1 className="mt-6 text-3xl font-bold">

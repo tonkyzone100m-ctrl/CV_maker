@@ -1,5 +1,6 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
+import BrandLogo from "../components/BrandLogo";
 
 export default function DashboardLayout() {
   const { user, logout } = useAuth();
@@ -15,9 +16,7 @@ export default function DashboardLayout() {
       <header className="border-b bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link to="/dashboard" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-sm font-bold text-white">
-              CV
-            </div>
+            <BrandLogo compact className="h-9 w-9 rounded-lg" />
             <span className="font-bold">CV Maker</span>
           </Link>
 

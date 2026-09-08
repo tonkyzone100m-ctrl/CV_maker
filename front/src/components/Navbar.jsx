@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
+import BrandLogo from "./BrandLogo";
 
 export default function Navbar() {
   const { isAuthenticated, user, logout } = useAuth();
@@ -14,9 +15,7 @@ export default function Navbar() {
     <nav className="border-b bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link to="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 font-bold text-white">
-            CV
-          </div>
+          <BrandLogo compact />
 
           <span className="text-xl font-bold text-slate-900">
             CV Maker

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 import { cvApi, isApiConfigured } from "../services/api";
+import BrandLogo from "../components/BrandLogo";
 
 export default function Dashboard() {
   const { user, logout } = useAuth();
@@ -101,9 +102,7 @@ export default function Dashboard() {
             to="/"
             className="flex items-center gap-3"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 font-bold text-white">
-              CV
-            </div>
+            <BrandLogo compact />
 
             <span className="text-xl font-bold">
               CV Maker

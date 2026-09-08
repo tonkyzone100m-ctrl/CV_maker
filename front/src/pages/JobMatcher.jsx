@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { matchJobDescription } from "../services/jobMatcher";
+import BrandLogo from "../components/BrandLogo";
 
 export default function JobMatcher() {
   const [cv] = useState(() => {
@@ -48,11 +49,11 @@ export default function JobMatcher() {
       {/* Header */}
       <header className="border-b bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link
-            to="/"
-            className="text-xl font-bold text-gray-900"
-          >
-            CV Maker
+          <Link to="/" className="flex items-center gap-3">
+            <BrandLogo compact className="h-9 w-9 rounded-lg" />
+            <span className="text-xl font-bold text-gray-900">
+              CV Maker
+            </span>
           </Link>
 
           <Link

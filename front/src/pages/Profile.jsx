@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
+import BrandLogo from "../components/BrandLogo";
 
 export default function Profile() {
   const { user, logout } = useAuth();
@@ -69,9 +70,7 @@ export default function Profile() {
             to="/dashboard"
             className="flex items-center gap-3"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 font-bold text-white">
-              CV
-            </div>
+            <BrandLogo compact />
 
             <span className="text-xl font-bold text-slate-900">
               CV Maker
