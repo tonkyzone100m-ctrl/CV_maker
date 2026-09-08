@@ -3,7 +3,7 @@ import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import CVPreview from "../components/CVPreview";
 import CVProgress from "../components/CVProgress";
 import { downloadCVAsPDF } from "../services/pdf";
-import { cvApi, isApiConfigured } from "../services/api";
+import { aiApi, cvApi, isApiConfigured } from "../services/api";
 import { useAuth } from "../context/auth";
 
 
@@ -132,6 +132,8 @@ export default function CreateCV() {
   const [saved, setSaved] = useState(false);
   const [saveStatus, setSaveStatus] = useState("idle");
   const [validationMessage, setValidationMessage] = useState("");
+  const [summaryGenerating, setSummaryGenerating] = useState(false);
+  const [summaryError, setSummaryError] = useState("");
   const [downloading, setDownloading] = useState(false);
   const [photoError, setPhotoError] = useState("");
 
@@ -558,6 +560,33 @@ export default function CreateCV() {
     }
   }
 
+  async function generateProfessionalSummary() {
+    if (!isApiConfigured) {
+      setSummaryError("Connect the backend API to use the AI assistant.");
+      return;
+    }
+
+    setSummaryGenerating(true);
+    setSummaryError("");
+
+    try {
+      const response = await aiApi.professionalSummary({
+        name: cv.name,
+        title: cv.title,
+        experience: cv.experience,
+        education: cv.education,
+        skills: cv.skills,
+      });
+
+      updateField("summary", response.summary);
+    } catch (error) {
+      console.error("Failed to generate professional summary:", error);
+      setSummaryError(error.message);
+    } finally {
+      setSummaryGenerating(false);
+    }
+  }
+
   async function downloadPDF() {
     if (!previewRef.current) {
       alert("CV preview is not ready.");
@@ -884,14 +913,37 @@ export default function CreateCV() {
 
             </div>
 
-            <TextArea
-              label="Professional Summary"
-              value={cv.summary}
-              onChange={(value) =>
-                updateField("summary", value)
-              }
-              placeholder="Write a short professional summary..."
-            />
+            <div>
+              <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                <label className="text-sm font-semibold text-slate-700">
+                  Professional Summary
+                </label>
+                <button
+                  type="button"
+                  onClick={generateProfessionalSummary}
+                  disabled={summaryGenerating}
+                  className="rounded-lg bg-blue-50 px-3 py-2 text-xs font-bold text-blue-700 transition hover:bg-blue-100 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {summaryGenerating ? "Writing summary..." : "Generate with AI"}
+                </button>
+              </div>
+              <textarea
+                value={cv.summary}
+                onChange={(event) => updateField("summary", event.target.value)}
+                placeholder="Write a short professional summary..."
+                rows={5}
+                className="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              />
+              {summaryError && (
+                <p className="mt-2 text-xs font-medium text-red-600">
+                  {summaryError}
+                </p>
+              )}
+              <p className="mt-2 text-xs text-slate-500">
+                AI creates an editable draft from the information in your CV.
+                Review it before saving.
+              </p>
+            </div>
 
           </EditorCard>
 

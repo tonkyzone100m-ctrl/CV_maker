@@ -28,6 +28,10 @@ Set `ADMIN_EMAIL` to the normalized email address that should receive admin
 access. The account must still be registered normally; admin access is checked
 server-side for the configured email or a user with the `ADMIN` role.
 
+Optional AI summary generation uses an OpenAI-compatible chat completions
+endpoint. Keep `AI_API_KEY` server-side and configure `AI_API_URL` and
+`AI_MODEL` as needed. The frontend never receives the key.
+
 ## API contract
 
 All JSON responses use these shapes:
@@ -36,6 +40,7 @@ All JSON responses use these shapes:
 - `GET /api/auth/me`: `{ user }`
 - `GET /api/admin/users`: `{ users }` for administrators; each user is identified
   by its unique normalized email address.
+- `POST /api/ai/professional-summary`: `{ summary }` for authenticated users.
 - `GET /api/cvs`: `{ cvs }`
 - `POST /api/cvs` and `PUT /api/cvs/:id`: `{ cv }`
 - Errors: `{ message }`

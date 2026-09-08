@@ -55,6 +55,14 @@ export const adminApi = {
   users: () => request("/api/admin/users"),
 };
 
+export const aiApi = {
+  professionalSummary: (cv) =>
+    request("/api/ai/professional-summary", {
+      method: "POST",
+      body: JSON.stringify(cv),
+    }),
+};
+
 export const cvApi = {
   list: () => request("/api/cvs"),
   create: (cv) =>

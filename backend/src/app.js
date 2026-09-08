@@ -1,7 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
-const { clientOrigin, adminEmail } = require("./config");
+const {
+  clientOrigin,
+  adminEmail,
+  aiApiKey,
+  aiApiUrl,
+  aiModel,
+} = require("./config");
 const { createToken, requireAuth } = require("./auth");
 const { prisma } = require("./db");
 
@@ -223,6 +229,75 @@ app.get("/api/cvs", requireAuth, async (req, res, next) => {
       where: { userId: req.userId },
       include: cvInclude,
       orderBy: { updatedAt: "desc" },
+    });
+
+    app.post("/api/ai/professional-summary", requireAuth, async (req, res, next) => {
+      try {
+        if (!aiApiKey) {
+          return res.status(503).json({
+            message: "AI summary generation is not configured. Add AI_API_KEY to the backend environment.",
+          });
+        }
+
+        const {
+          name = "",
+          title = "",
+          experience = [],
+          education = [],
+          skills = [],
+        } = req.body || {};
+
+        const prompt = [
+          "Write one professional CV summary in English.",
+          "Use third-person voice without first-person pronouns.",
+          "Use 45-75 words, 3-4 concise sentences, and no headings or bullet points.",
+          "Do not invent employers, dates, qualifications, achievements, metrics, or skills.",
+          `Candidate name: ${String(name).trim() || "Not provided"}`,
+          `Professional title: ${String(title).trim() || "Not provided"}`,
+          `Skills: ${JSON.stringify(Array.isArray(skills) ? skills.slice(0, 20) : [])}`,
+          `Experience: ${JSON.stringify(Array.isArray(experience) ? experience.slice(0, 8) : [])}`,
+          `Education: ${JSON.stringify(Array.isArray(education) ? education.slice(0, 5) : [])}`,
+        ].join("\n");
+
+        const response = await fetch(aiApiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${aiApiKey}`,
+          },
+          body: JSON.stringify({
+            model: aiModel,
+            temperature: 0.7,
+            max_tokens: 180,
+            messages: [
+              {
+                role: "system",
+                content: "You are a professional CV writing assistant.",
+              },
+              { role: "user", content: prompt },
+            ],
+          }),
+        });
+
+        const body = await response.json().catch(() => null);
+        if (!response.ok) {
+          console.error("AI provider request failed:", response.status, body);
+          return res.status(502).json({
+            message: "The AI assistant could not generate a summary right now.",
+          });
+        }
+
+        const summary = body?.choices?.[0]?.message?.content?.trim();
+        if (!summary) {
+          return res.status(502).json({
+            message: "The AI assistant returned an empty summary.",
+          });
+        }
+
+        return res.json({ summary });
+      } catch (error) {
+        return next(error);
+      }
     });
     return res.json({ cvs: cvs.map(publicCV) });
   } catch (error) {

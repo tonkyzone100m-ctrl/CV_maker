@@ -11,4 +11,7 @@ module.exports = {
   jwtSecret: process.env.JWT_SECRET || "development-only-secret",
   clientOrigin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
   adminEmail: (process.env.ADMIN_EMAIL || "").trim().toLowerCase(),
+  aiApiKey: process.env.AI_API_KEY || "",
+  aiApiUrl: process.env.AI_API_URL || "https://api.openai.com/v1/chat/completions",
+  aiModel: process.env.AI_MODEL || "gpt-4o-mini",
 };
