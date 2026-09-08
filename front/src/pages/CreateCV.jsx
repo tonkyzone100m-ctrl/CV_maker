@@ -670,7 +670,9 @@ export default function CreateCV() {
         <section className="space-y-6 print:hidden">
 
           {/* TEMPLATE SELECTOR */}
-          <CVProgress cv={cv} />
+          <div className="sticky top-24 z-20 lg:top-24">
+            <CVProgress cv={cv} />
+          </div>
 
           <div className="rounded-2xl border bg-white p-5 shadow-sm">
 
