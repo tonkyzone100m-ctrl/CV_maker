@@ -664,16 +664,17 @@ export default function CreateCV() {
         </div>
       </header>
 
-      <main className="mx-auto grid max-w-[1600px] gap-6 px-5 py-6 lg:grid-cols-[520px_1fr]">
+      <main className="mx-auto grid max-w-[1600px] gap-6 px-5 py-6 lg:grid-cols-[760px_1fr]">
 
         {/* EDITOR */}
-        <section className="space-y-6 print:hidden">
+        <section className="space-y-6 print:hidden lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start lg:gap-6 lg:space-y-0">
 
           {/* TEMPLATE SELECTOR */}
-          <div className="sticky top-24 z-20 lg:top-24">
+          <div className="lg:sticky lg:top-24">
             <CVProgress cv={cv} />
           </div>
 
+          <div className="space-y-6">
           <div className="rounded-2xl border bg-white p-5 shadow-sm">
 
             <div className="mb-4">
@@ -686,7 +687,6 @@ export default function CreateCV() {
                 the design changes.
               </p>
             </div>
-
             <div className="grid grid-cols-2 gap-3">
               {templates.map((item) => (
                 <button
@@ -1249,6 +1249,7 @@ export default function CreateCV() {
 
           </EditorCard>
 
+          </div>
         </section>
 
         {/* PREVIEW */}
