@@ -52,6 +52,9 @@ command:
 npm run db:deploy
 ```
 
+The backend cannot authenticate users or save CVs until the PostgreSQL service
+is running and `DATABASE_URL` references that service.
+
 ## 3. Frontend variables
 
 In the frontend service, add:

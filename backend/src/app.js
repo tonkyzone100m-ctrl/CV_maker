@@ -365,6 +365,12 @@ app.delete("/api/cvs/:id", requireAuth, async (req, res, next) => {
 
 app.use((error, _req, res, _next) => {
   console.error(error);
+  if (error?.code === "P1001" || error?.code === "P1000") {
+    return res.status(503).json({
+      message:
+        "The database is unavailable. Start PostgreSQL locally or configure the Railway DATABASE_URL.",
+    });
+  }
   res.status(500).json({ message: "Internal server error." });
 });
 

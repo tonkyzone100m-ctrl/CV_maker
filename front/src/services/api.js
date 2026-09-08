@@ -44,7 +44,10 @@ async function request(path, options = {}) {
 
   const body = await response.json().catch(() => null);
   if (!response.ok) {
-    throw new Error(body?.message || "The request could not be completed.");
+    const message =
+      body?.message ||
+      `The request failed with HTTP ${response.status}.`;
+    throw new Error(message);
   }
 
   return body;
