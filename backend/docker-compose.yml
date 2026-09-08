@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: cv-maker-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: cv_maker
+      POSTGRES_USER: cv_maker
+      POSTGRES_PASSWORD: cv_maker_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - cv-maker-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cv_maker -d cv_maker"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  cv-maker-postgres-data:

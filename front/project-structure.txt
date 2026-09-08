@@ -1,0 +1,1276 @@
+﻿========== PACKAGE.JSON ==========
+{
+  "name": "front",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.1.0",
+    "autoprefixer": "^10.5.5",
+    "eslint": "^10.9.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.4",
+    "globals": "^17.11.0",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.2.2"
+  }
+}
+
+
+========== APP.JSX ==========
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import CreateCV from "./pages/CreateCV";
+import EditCV from "./pages/EditCV";
+import Templates from "./pages/Templates";
+import Profile from "./pages/Profile";
+import NotFound from "./pages/NotFound";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/create-cv" element={<CreateCV />} />
+        <Route path="/edit-cv/:id" element={<EditCV />} />
+        <Route path="/templates" element={<Templates />} />
+        <Route path="/profile" element={<Profile />} />
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+========== MAIN.JSX ==========
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);          
+
+========== INDEX.CSS ==========
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+  line-height: 1.5;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: #2563eb;
+  color: white;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* CV page */
+.cv-page {
+  background: white;
+  min-height: 1123px;
+  width: 794px;
+  margin: 0 auto;
+}
+
+/* Print */
+@media print {
+  body {
+    background: white;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .cv-page {
+    margin: 0;
+    width: 100%;
+    min-height: auto;
+    box-shadow: none;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 800px) {
+  .cv-page {
+    width: 100%;
+    min-height: auto;
+  }
+}
+
+========== APP.CSS ==========
+.counter {
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  margin-bottom: 24px;
+
+  &:hover {
+    border-color: var(--accent-border);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.hero {
+  position: relative;
+
+  .base,
+  .framework,
+  .vite {
+    inset-inline: 0;
+    margin: 0 auto;
+  }
+
+  .base {
+    width: 170px;
+    position: relative;
+    z-index: 0;
+  }
+
+  .framework,
+  .vite {
+    position: absolute;
+  }
+
+  .framework {
+    z-index: 1;
+    top: 34px;
+    height: 28px;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
+      scale(1.4);
+  }
+
+  .vite {
+    z-index: 0;
+    top: 107px;
+    height: 26px;
+    width: auto;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
+      scale(0.8);
+  }
+}
+
+#center {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  place-content: center;
+  place-items: center;
+  flex-grow: 1;
+
+  @media (max-width: 1024px) {
+    padding: 32px 20px 24px;
+    gap: 18px;
+  }
+}
+
+#next-steps {
+  display: flex;
+  border-top: 1px solid var(--border);
+  text-align: left;
+
+  & > div {
+    flex: 1 1 0;
+    padding: 32px;
+    @media (max-width: 1024px) {
+      padding: 24px 20px;
+    }
+  }
+
+  .icon {
+    margin-bottom: 16px;
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+#docs {
+  border-right: 1px solid var(--border);
+
+  @media (max-width: 1024px) {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+#next-steps ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  margin: 32px 0 0;
+
+  .logo {
+    height: 18px;
+  }
+
+  a {
+    color: var(--text-h);
+    font-size: 16px;
+    border-radius: 6px;
+    background: var(--social-bg);
+    display: flex;
+    padding: 6px 12px;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: var(--shadow);
+    }
+    .button-icon {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    li {
+      flex: 1 1 calc(50% - 8px);
+    }
+
+    a {
+      width: 100%;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+  }
+}
+
+#spacer {
+  height: 88px;
+  border-top: 1px solid var(--border);
+  @media (max-width: 1024px) {
+    height: 48px;
+  }
+}
+
+.ticks {
+  position: relative;
+  width: 100%;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4.5px;
+    border: 5px solid transparent;
+  }
+
+  &::before {
+    left: 0;
+    border-left-color: var(--border);
+  }
+  &::after {
+    right: 0;
+    border-right-color: var(--border);
+  }
+}
+
+
+========== AUTH CONTEXT ==========
+
+
+========== PUBLIC LAYOUT ==========
+
+
+========== DASHBOARD LAYOUT ==========
+
+
+========== API SERVICE ==========
+
+
+========== COMPONENTS ==========
+import { Link } from "react-router-dom";
+
+export default function Navbar() {
+  return (
+    <nav className="border-b bg-white">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+
+        <Link to="/" className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600 font-bold text-white">
+            CV
+          </div>
+
+          <span className="text-xl font-bold">
+            CV Maker
+          </span>
+        </Link>
+
+        <div className="hidden items-center gap-6 md:flex">
+          <Link to="/templates" className="text-slate-600 hover:text-blue-600">
+            Templates
+          </Link>
+
+          <Link to="/login" className="text-slate-600 hover:text-blue-600">
+            Login
+          </Link>
+
+          <Link
+            to="/register"
+            className="rounded-lg bg-blue-600 px-5 py-2 text-white hover:bg-blue-700"
+          >
+            Get Started
+          </Link>
+        </div>
+
+      </div>
+    </nav>
+  );
+}  TemplateCard.jsx
+
+========== PAGES ==========
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
+export default function CreateCV() {
+  const [form, setForm] = useState({
+    name: "",
+    title: "",
+    email: "",
+    phone: "",
+    location: "",
+    summary: "",
+  });
+
+  function handleChange(e) {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-100">
+
+      <header className="border-b bg-white">
+        <div className="flex items-center justify-between px-6 py-4">
+
+          <Link to="/dashboard" className="font-bold">
+            â† Dashboard
+          </Link>
+
+          <h1 className="text-xl font-bold">
+            Create CV
+          </h1>
+
+          <button className="rounded-lg bg-blue-600 px-5 py-2 text-white">
+            Save CV
+          </button>
+
+        </div>
+      </header>
+
+      <main className="grid min-h-screen lg:grid-cols-2">
+
+        {/* FORM */}
+
+        <div className="overflow-y-auto p-6 lg:p-10">
+
+          <div className="mx-auto max-w-xl">
+
+            <h2 className="text-2xl font-bold">
+              Personal Information
+            </h2>
+
+            <p className="mt-1 text-slate-500">
+              Start with your basic information.
+            </p>
+
+            <div className="mt-8 space-y-5">
+
+              <Input
+                label="Full Name"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="John Doe"
+              />
+
+              <Input
+                label="Professional Title"
+                name="title"
+                value={form.title}
+                onChange={handleChange}
+                placeholder="Software Developer"
+              />
+
+              <Input
+                label="Email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="john@example.com"
+              />
+
+              <Input
+                label="Phone"
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                placeholder="+250 788 000 000"
+              />
+
+              <Input
+                label="Location"
+                name="location"
+                value={form.location}
+                onChange={handleChange}
+                placeholder="Kigali, Rwanda"
+              />
+
+              <div>
+                <label className="mb-2 block font-medium">
+                  Professional Summary
+                </label>
+
+                <textarea
+                  name="summary"
+                  value={form.summary}
+                  onChange={handleChange}
+                  rows="6"
+                  placeholder="Write a short professional summary..."
+                  className="w-full rounded-lg border bg-white px-4 py-3 outline-none focus:border-blue-500"
+                />
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* PREVIEW */}
+
+        <div className="bg-slate-300 p-6 lg:p-10">
+
+          <div className="sticky top-6 mx-auto max-w-xl bg-white p-10 shadow-xl">
+
+            <h1 className="text-4xl font-bold">
+              {form.name || "YOUR NAME"}
+            </h1>
+
+            <p className="mt-2 text-blue-600">
+              {form.title || "Professional Title"}
+            </p>
+
+            <p className="mt-3 text-sm text-slate-500">
+              {form.email || "email@example.com"}
+              {" â€¢ "}
+              {form.phone || "+250 000 000 000"}
+              {" â€¢ "}
+              {form.location || "Location"}
+            </p>
+
+            <hr className="my-6" />
+
+            <h2 className="font-bold uppercase tracking-wide">
+              Profile
+            </h2>
+
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              {form.summary ||
+                "Your professional summary will appear here."}
+            </p>
+
+            <h2 className="mt-8 font-bold uppercase tracking-wide">
+              Experience
+            </h2>
+
+            <p className="mt-3 text-sm text-slate-400">
+              Add your work experience.
+            </p>
+
+            <h2 className="mt-8 font-bold uppercase tracking-wide">
+              Education
+            </h2>
+
+            <p className="mt-3 text-sm text-slate-400">
+              Add your education.
+            </p>
+
+            <h2 className="mt-8 font-bold uppercase tracking-wide">
+              Skills
+            </h2>
+
+            <p className="mt-3 text-sm text-slate-400">
+              Add your skills.
+            </p>
+
+          </div>
+
+        </div>
+
+      </main>
+
+    </div>
+  );
+}
+
+function Input({
+  label,
+  name,
+  value,
+  onChange,
+  placeholder,
+}) {
+  return (
+    <div>
+      <label className="mb-2 block font-medium">
+        {label}
+      </label>
+
+      <input
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="w-full rounded-lg border bg-white px-4 py-3 outline-none focus:border-blue-500"
+      />
+    </div>
+  );
+} import { Link } from "react-router-dom";
+
+export default function Dashboard() {
+  const cvs = [
+    {
+      id: 1,
+      name: "Software Developer CV",
+      updated: "Today",
+    },
+    {
+      id: 2,
+      name: "Network Administrator CV",
+      updated: "Yesterday",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+
+      <header className="border-b bg-white">
+        <div className="mx-auto flex max-w-7xl justify-between px-6 py-4">
+
+          <Link to="/" className="text-xl font-bold">
+            CV Maker
+          </Link>
+
+          <Link
+            to="/profile"
+            className="text-slate-600"
+          >
+            My Profile
+          </Link>
+
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-7xl px-6 py-10">
+
+        <div className="flex items-center justify-between">
+
+          <div>
+            <h1 className="text-3xl font-bold">
+              My CVs
+            </h1>
+
+            <p className="mt-2 text-slate-500">
+              Manage your professional CVs.
+            </p>
+          </div>
+
+          <Link
+            to="/create-cv"
+            className="rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white"
+          >
+            + Create CV
+          </Link>
+
+        </div>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+          {cvs.map((cv) => (
+            <div
+              key={cv.id}
+              className="rounded-xl border bg-white p-6 shadow-sm"
+            >
+
+              <div className="flex h-64 items-center justify-center bg-slate-100">
+                <span className="font-bold text-slate-400">
+                  CV PREVIEW
+                </span>
+              </div>
+
+              <h2 className="mt-5 font-bold">
+                {cv.name}
+              </h2>
+
+              <p className="mt-1 text-sm text-slate-500">
+                Updated {cv.updated}
+              </p>
+
+              <div className="mt-5 flex gap-3">
+
+                <Link
+                  to={`/edit-cv/${cv.id}`}
+                  className="flex-1 rounded-lg bg-blue-600 py-2 text-center text-sm font-semibold text-white"
+                >
+                  Edit
+                </Link>
+
+                <button className="rounded-lg border px-4 py-2 text-sm">
+                  Delete
+                </button>
+
+              </div>
+
+            </div>
+          ))}
+
+        </div>
+
+      </main>
+
+    </div>
+  );
+} import { useState } from "react";
+import { Link } from "react-router-dom";
+
+export default function CreateCV() {
+  const [form, setForm] = useState({
+    name: "",
+    title: "",
+    email: "",
+    phone: "",
+    location: "",
+    summary: "",
+  });
+
+  function handleChange(e) {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-100">
+
+      <header className="border-b bg-white">
+        <div className="flex items-center justify-between px-6 py-4">
+
+          <Link to="/dashboard" className="font-bold">
+            â† Dashboard
+          </Link>
+
+          <h1 className="text-xl font-bold">
+            Create CV
+          </h1>
+
+          <button className="rounded-lg bg-blue-600 px-5 py-2 text-white">
+            Save CV
+          </button>
+
+        </div>
+      </header>
+
+      <main className="grid min-h-screen lg:grid-cols-2">
+
+        {/* FORM */}
+
+        <div className="overflow-y-auto p-6 lg:p-10">
+
+          <div className="mx-auto max-w-xl">
+
+            <h2 className="text-2xl font-bold">
+              Personal Information
+            </h2>
+
+            <p className="mt-1 text-slate-500">
+              Start with your basic information.
+            </p>
+
+            <div className="mt-8 space-y-5">
+
+              <Input
+                label="Full Name"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="John Doe"
+              />
+
+              <Input
+                label="Professional Title"
+                name="title"
+                value={form.title}
+                onChange={handleChange}
+                placeholder="Software Developer"
+              />
+
+              <Input
+                label="Email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="john@example.com"
+              />
+
+              <Input
+                label="Phone"
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                placeholder="+250 788 000 000"
+              />
+
+              <Input
+                label="Location"
+                name="location"
+                value={form.location}
+                onChange={handleChange}
+                placeholder="Kigali, Rwanda"
+              />
+
+              <div>
+                <label className="mb-2 block font-medium">
+                  Professional Summary
+                </label>
+
+                <textarea
+                  name="summary"
+                  value={form.summary}
+                  onChange={handleChange}
+                  rows="6"
+                  placeholder="Write a short professional summary..."
+                  className="w-full rounded-lg border bg-white px-4 py-3 outline-none focus:border-blue-500"
+                />
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* PREVIEW */}
+
+        <div className="bg-slate-300 p-6 lg:p-10">
+
+          <div className="sticky top-6 mx-auto max-w-xl bg-white p-10 shadow-xl">
+
+            <h1 className="text-4xl font-bold">
+              {form.name || "YOUR NAME"}
+            </h1>
+
+            <p className="mt-2 text-blue-600">
+              {form.title || "Professional Title"}
+            </p>
+
+            <p className="mt-3 text-sm text-slate-500">
+              {form.email || "email@example.com"}
+              {" â€¢ "}
+              {form.phone || "+250 000 000 000"}
+              {" â€¢ "}
+              {form.location || "Location"}
+            </p>
+
+            <hr className="my-6" />
+
+            <h2 className="font-bold uppercase tracking-wide">
+              Profile
+            </h2>
+
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              {form.summary ||
+                "Your professional summary will appear here."}
+            </p>
+
+            <h2 className="mt-8 font-bold uppercase tracking-wide">
+              Experience
+            </h2>
+
+            <p className="mt-3 text-sm text-slate-400">
+              Add your work experience.
+            </p>
+
+            <h2 className="mt-8 font-bold uppercase tracking-wide">
+              Education
+            </h2>
+
+            <p className="mt-3 text-sm text-slate-400">
+              Add your education.
+            </p>
+
+            <h2 className="mt-8 font-bold uppercase tracking-wide">
+              Skills
+            </h2>
+
+            <p className="mt-3 text-sm text-slate-400">
+              Add your skills.
+            </p>
+
+          </div>
+
+        </div>
+
+      </main>
+
+    </div>
+  );
+}
+
+function Input({
+  label,
+  name,
+  value,
+  onChange,
+  placeholder,
+}) {
+  return (
+    <div>
+      <label className="mb-2 block font-medium">
+        {label}
+      </label>
+
+      <input
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="w-full rounded-lg border bg-white px-4 py-3 outline-none focus:border-blue-500"
+      />
+    </div>
+  );
+} import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
+
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-slate-50">
+
+      <Navbar />
+
+      <section className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2">
+
+        <div>
+
+          <span className="rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
+            Simple â€¢ Professional â€¢ Fast
+          </span>
+
+          <h1 className="mt-6 text-5xl font-bold leading-tight">
+            Build a professional CV in minutes.
+          </h1>
+
+          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+            Create a beautiful professional CV using simple templates.
+            Customize your information and download your CV as a PDF.
+          </p>
+
+          <div className="mt-8 flex gap-4">
+
+            <Link
+              to="/register"
+              className="rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
+            >
+              Create My CV
+            </Link>
+
+            <Link
+              to="/templates"
+              className="rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold"
+            >
+              View Templates
+            </Link>
+
+          </div>
+
+        </div>
+
+        <div className="rounded-2xl bg-slate-200 p-6 shadow-xl">
+
+          <div className="mx-auto max-w-lg bg-white p-8 shadow-lg">
+
+            <h2 className="text-3xl font-bold">
+              JOHN DOE
+            </h2>
+
+            <p className="mt-1 text-blue-600">
+              Software Developer
+            </p>
+
+            <div className="my-5 border-b" />
+
+            <h3 className="font-bold uppercase">
+              Profile
+            </h3>
+
+            <p className="mt-2 text-sm text-slate-600">
+              Passionate software developer with experience building
+              modern web applications.
+            </p>
+
+            <h3 className="mt-6 font-bold uppercase">
+              Experience
+            </h3>
+
+            <p className="mt-2 text-sm font-semibold">
+              Frontend Developer
+            </p>
+
+            <p className="text-sm text-slate-600">
+              ABC Technologies
+            </p>
+
+            <h3 className="mt-6 font-bold uppercase">
+              Skills
+            </h3>
+
+            <div className="mt-2 flex flex-wrap gap-2">
+              {["React", "PHP", "MySQL", "Git"].map((skill) => (
+                <span
+                  key={skill}
+                  className="rounded bg-slate-100 px-3 py-1 text-xs"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+  );
+} import { Link } from "react-router-dom";
+
+export default function Login() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-6">
+
+      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
+
+        <div className="text-center">
+          <h1 className="text-3xl font-bold">
+            Welcome back
+          </h1>
+
+          <p className="mt-2 text-slate-500">
+            Login to manage your CVs
+          </p>
+        </div>
+
+        <form className="mt-8 space-y-5">
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Email
+            </label>
+
+            <input
+              type="email"
+              className="w-full rounded-lg border px-4 py-3 outline-none focus:border-blue-500"
+              placeholder="you@example.com"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Password
+            </label>
+
+            <input
+              type="password"
+              className="w-full rounded-lg border px-4 py-3 outline-none focus:border-blue-500"
+              placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white hover:bg-blue-700"
+          >
+            Login
+          </button>
+
+        </form>
+
+        <p className="mt-6 text-center text-sm text-slate-500">
+          Don't have an account?{" "}
+          <Link
+            to="/register"
+            className="font-semibold text-blue-600"
+          >
+            Create one
+          </Link>
+        </p>
+
+      </div>
+
+    </div>
+  );
+} import { Link } from "react-router-dom";
+
+export default function NotFound() {
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center bg-slate-50">
+
+      <h1 className="text-8xl font-bold text-blue-600">
+        404
+      </h1>
+
+      <h2 className="mt-4 text-2xl font-bold">
+        Page not found
+      </h2>
+
+      <p className="mt-2 text-slate-500">
+        The page you're looking for doesn't exist.
+      </p>
+
+      <Link
+        to="/"
+        className="mt-6 rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white"
+      >
+        Back Home
+      </Link>
+
+    </div>
+  );
+} import { Link } from "react-router-dom";
+
+export default function Profile() {
+  return (
+    <div className="min-h-screen bg-slate-50">
+
+      <header className="border-b bg-white px-6 py-5">
+        <Link to="/dashboard" className="font-bold">
+          â† Dashboard
+        </Link>
+      </header>
+
+      <main className="mx-auto max-w-3xl px-6 py-10">
+
+        <h1 className="text-3xl font-bold">
+          My Profile
+        </h1>
+
+        <div className="mt-8 rounded-xl border bg-white p-8">
+
+          <div className="space-y-5">
+
+            <div>
+              <label className="mb-2 block font-medium">
+                Full Name
+              </label>
+
+              <input
+                className="w-full rounded-lg border px-4 py-3"
+                placeholder="John Doe"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-medium">
+                Email
+              </label>
+
+              <input
+                className="w-full rounded-lg border px-4 py-3"
+                placeholder="john@example.com"
+              />
+            </div>
+
+            <button className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white">
+              Save Changes
+            </button>
+
+          </div>
+
+        </div>
+
+      </main>
+
+    </div>
+  );
+} import { Link } from "react-router-dom";
+
+export default function Register() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-6">
+
+      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
+
+        <div className="text-center">
+          <h1 className="text-3xl font-bold">
+            Create your account
+          </h1>
+
+          <p className="mt-2 text-slate-500">
+            Start building professional CVs
+          </p>
+        </div>
+
+        <form className="mt-8 space-y-5">
+
+          <input
+            type="text"
+            placeholder="Full name"
+            className="w-full rounded-lg border px-4 py-3"
+          />
+
+          <input
+            type="email"
+            placeholder="Email address"
+            className="w-full rounded-lg border px-4 py-3"
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full rounded-lg border px-4 py-3"
+          />
+
+          <input
+            type="password"
+            placeholder="Confirm password"
+            className="w-full rounded-lg border px-4 py-3"
+          />
+
+          <button
+            type="submit"
+            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white"
+          >
+            Create Account
+          </button>
+
+        </form>
+
+        <p className="mt-6 text-center text-sm text-slate-500">
+          Already have an account?{" "}
+          <Link to="/login" className="font-semibold text-blue-600">
+            Login
+          </Link>
+        </p>
+
+      </div>
+
+    </div>
+  );
+} import { useParams } from "react-router-dom";
+import CreateCV from "./CreateCV";
+
+export default function EditCV() {
+  const { id } = useParams();
+
+  console.log("Editing CV:", id);
+
+  return <CreateCV />;
+}
