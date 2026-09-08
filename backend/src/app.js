@@ -270,31 +270,47 @@ app.post("/api/ai/professional-summary", requireAuth, async (req, res, next) => 
       )}`,
     ].join("\n");
 
-    const response = await fetch(aiApiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${aiApiKey}`,
-      },
-      body: JSON.stringify({
-        model: aiModel,
-        temperature: 0.7,
-        max_tokens: 180,
-        messages: [
-          {
-            role: "system",
-            content: "You are a professional CV writing assistant.",
-          },
-          { role: "user", content: prompt },
-        ],
-      }),
-    });
+    let response;
+    try {
+      response = await fetch(aiApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${aiApiKey}`,
+        },
+        body: JSON.stringify({
+          model: aiModel,
+          temperature: 0.7,
+          max_tokens: 180,
+          messages: [
+            {
+              role: "system",
+              content: "You are a professional CV writing assistant.",
+            },
+            { role: "user", content: prompt },
+          ],
+        }),
+        signal: AbortSignal.timeout(30000),
+      });
+    } catch (error) {
+      console.error("AI provider is unreachable:", error);
+      return res.status(503).json({
+        message:
+          "The AI provider is unavailable. Check AI_API_URL and try again.",
+      });
+    }
 
     const body = await response.json().catch(() => null);
     if (!response.ok) {
       console.error("AI provider request failed:", response.status, body);
+      const providerMessage =
+        typeof body?.error?.message === "string"
+          ? body.error.message
+          : "";
       return res.status(502).json({
-        message: "The AI assistant could not generate a summary right now.",
+        message: providerMessage
+          ? `AI provider error: ${providerMessage}`
+          : `AI provider rejected the request (HTTP ${response.status}). Check AI_MODEL and AI_API_KEY.`,
       });
     }
 

@@ -30,7 +30,9 @@ server-side for the configured email or a user with the `ADMIN` role.
 
 Optional AI summary generation uses an OpenAI-compatible chat completions
 endpoint. Keep `AI_API_KEY` server-side and configure `AI_API_URL` and
-`AI_MODEL` as needed. The frontend never receives the key.
+`AI_MODEL` as needed. The frontend never receives the key. A 502 response
+means the provider rejected the request; verify the key has access to the
+configured model and that the endpoint matches the provider.
 
 ## API contract
 
