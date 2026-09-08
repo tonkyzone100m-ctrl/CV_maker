@@ -1,10 +1,8 @@
 const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
-const API_URL = (
-  configuredApiUrl || (import.meta.env.DEV ? "http://localhost:4000" : "")
-).replace(/\/$/, "");
+const API_URL = (configuredApiUrl || "").replace(/\/$/, "");
 const TOKEN_KEY = "cv_access_token";
 
-export const isApiConfigured = Boolean(API_URL);
+export const isApiConfigured = Boolean(API_URL) || import.meta.env.DEV;
 
 export function getAccessToken() {
   return localStorage.getItem(TOKEN_KEY);
@@ -35,8 +33,11 @@ async function request(path, options = {}) {
     });
   } catch (error) {
     console.error(`API request failed for ${API_URL}${path}:`, error);
+    const target = import.meta.env.DEV
+      ? "the local backend at http://localhost:4000"
+      : "the configured backend";
     throw new Error(
-      `Cannot reach the backend at ${API_URL}. Start the backend locally or set VITE_API_URL to its public HTTPS URL.`,
+      `Cannot reach ${target}. Start the backend locally or set VITE_API_URL to its public HTTPS URL.`,
       { cause: error }
     );
   }

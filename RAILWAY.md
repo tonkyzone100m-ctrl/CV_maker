@@ -64,6 +64,18 @@ This variable is baked into the frontend during `npm run build`; changing it
 requires a frontend redeploy. Do not leave it as `http://localhost:4000` on
 Railway, because a deployed browser cannot reach your local computer.
 
+For local development, Vite proxies `/api` requests to
+`http://localhost:4000`, so no `front/.env` file is required. Start the
+backend and frontend separately:
+
+```bash
+cd backend
+npm run dev
+
+cd front
+npm run dev
+```
+
 Use these commands if Railway does not detect them:
 
 ```text
