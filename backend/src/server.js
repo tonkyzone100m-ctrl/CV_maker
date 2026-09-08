@@ -3,7 +3,7 @@ const { port } = require("./config");
 const { disconnectDatabase } = require("./db");
 
 const server = app.listen(port, () => {
-  console.log(`CV Maker API listening on http://localhost:${port}`);
+  console.log(`CV Maker API listening on port ${port}`);
 });
 
 async function shutdown() {

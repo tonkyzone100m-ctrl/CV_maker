@@ -1,5 +1,6 @@
+const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
 const API_URL = (
-  import.meta.env.VITE_API_URL || "http://localhost:4000"
+  configuredApiUrl || (import.meta.env.DEV ? "http://localhost:4000" : "")
 ).replace(/\/$/, "");
 const TOKEN_KEY = "cv_access_token";
 

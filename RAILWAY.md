@@ -24,11 +24,15 @@ Railway detects the `package.json` scripts automatically.
 In the backend service, add:
 
 ```env
+NODE_ENV=production
 DATABASE_URL=${{Postgres.DATABASE_URL}}
 JWT_SECRET=<long-random-production-secret>
 CLIENT_ORIGIN=https://<your-frontend-domain>
 ADMIN_EMAIL=<administrator-email>
 ```
+
+`JWT_SECRET` must contain at least 32 characters in production. Generate one
+with a password manager or a cryptographically secure generator.
 
 The database variable reference may use the exact PostgreSQL service name
 Railway displays in your project.
