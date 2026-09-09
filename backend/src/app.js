@@ -381,7 +381,12 @@ app.delete("/api/cvs/:id", requireAuth, async (req, res, next) => {
 
 app.use((error, _req, res, _next) => {
   console.error(error);
-  if (error?.code === "P1001" || error?.code === "P1000") {
+  const databaseUnavailable =
+    error?.code === "P1001" ||
+    error?.code === "P1000" ||
+    error?.name === "PrismaClientInitializationError";
+
+  if (databaseUnavailable) {
     return res.status(503).json({
       message:
         "The database is unavailable. Start PostgreSQL locally or configure the Railway DATABASE_URL.",
