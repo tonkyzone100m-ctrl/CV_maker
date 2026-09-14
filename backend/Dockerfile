@@ -9,7 +9,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 COPY prisma ./prisma/
 
-# Install dependencies (runs prisma generate safely)
+# Install dependencies (runs prisma generate)
 RUN npm install
 
 # Copy rest of backend files
@@ -17,4 +17,5 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["node", "src/index.js"]
+# Entry point pointing to your server.js inside src
+CMD ["node", "src/server.js"]
