@@ -2,7 +2,8 @@ const app = require("./app");
 const { port } = require("./config");
 const { disconnectDatabase } = require("./db");
 
-const server = app.listen(port, () => {
+// Pass "0.0.0.0" to expose the port outside the Docker container
+const server = app.listen(port, "0.0.0.0", () => {
   console.log(`CV Maker API listening on port ${port}`);
 });
 
