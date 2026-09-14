@@ -1,19 +1,19 @@
-# Step 1: Use Node.js 20 (resolves the npm engine warnings)
+# Use Node 20 to clear engine warnings
 FROM node:20-slim
 
-# Step 2: Install Python inside container
+# Install Python dependencies
 RUN apt-get update && apt-get install -y python3 python3-pip && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
 
-# Step 3: Copy package files AND prisma schema folder
+# Copy package metadata AND prisma schema directory
 COPY package*.json ./
 COPY prisma ./prisma/
 
-# Step 4: Install dependencies (now prisma generate will find schema.prisma)
+# Install dependencies (prisma generate will now locate schema.prisma)
 RUN npm install
 
-# Step 5: Copy all remaining project files
+# Copy the rest of the application files
 COPY . .
 
 EXPOSE 5000
