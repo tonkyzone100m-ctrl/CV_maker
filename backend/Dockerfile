@@ -1,21 +1,19 @@
-# Step 1: Use a lightweight Node.js base image
 FROM node:18-slim
 
-# Step 2: Install Python 3 inside the container
+# Install Python inside container
 RUN apt-get update && apt-get install -y python3 python3-pip && rm -rf /var/lib/apt/lists/*
 
-# Step 3: Create working directory in the container
 WORKDIR /usr/src/app
 
-# Step 4: Copy package files and install Node.js dependencies
 COPY package*.json ./
 RUN npm install
 
-# Step 5: Copy all application code
+# Copy all files first
 COPY . .
 
-# Step 6: Expose Express port
+# Optional Python package install (will not break if requirements.txt doesn't exist)
+RUN if [ -f requirements.txt ]; then pip3 install --no-cache-dir -r requirements.txt; fi
+
 EXPOSE 5000
 
-# Step 7: Start Node.js application
 CMD ["node", "index.js"]
