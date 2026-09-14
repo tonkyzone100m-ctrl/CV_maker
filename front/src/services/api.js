@@ -1,5 +1,11 @@
 const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
-const API_URL = (configuredApiUrl || "").replace(/\/$/, "");
+
+// Fallback to live Render backend in production, or relative/empty string in local dev
+const DEFAULT_API_URL = import.meta.env.DEV 
+  ? "" 
+  : "https://cv-maker-re56.onrender.com";
+
+const API_URL = (configuredApiUrl || DEFAULT_API_URL).replace(/\/$/, "");
 const TOKEN_KEY = "cv_access_token";
 
 export const isApiConfigured = Boolean(API_URL) || import.meta.env.DEV;
