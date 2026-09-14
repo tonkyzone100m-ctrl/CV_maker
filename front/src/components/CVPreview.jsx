@@ -290,7 +290,7 @@ function SectionTitle({
       style={{
         margin: "0 0 12px",
         color: accent,
-        fontSize: "12px",
+        fontSize: "14px",
         fontWeight: 800,
         letterSpacing: "1.2px",
         textTransform: "uppercase",
@@ -358,7 +358,7 @@ function ContactLine({ cv }) {
         flexWrap: "wrap",
         gap: "6px 16px",
         color: "#64748b",
-        fontSize: 9,
+        fontSize: 12,
         marginTop: 8,
       }}
     >
@@ -393,7 +393,7 @@ function Summary({
         style={{
           margin: 0,
           color: "#475569",
-          fontSize: 10,
+          fontSize: 13,
           lineHeight: 1.65,
         }}
       >
@@ -472,7 +472,7 @@ function Experience({
                     style={{
                       margin: 0,
                       color: "#0f172a",
-                      fontSize: 11,
+                      fontSize: 14,
                       fontWeight: 800,
                     }}
                   >
@@ -485,7 +485,7 @@ function Experience({
                     style={{
                       margin: "3px 0 0",
                       color: accent,
-                      fontSize: 9,
+                      fontSize: 13,
                       fontWeight: 700,
                     }}
                   >
@@ -498,7 +498,7 @@ function Experience({
                 <span
                   style={{
                     color: "#64748b",
-                    fontSize: 8,
+                    fontSize: 12,
                     whiteSpace: "nowrap",
                     flexShrink: 0,
                   }}
@@ -514,7 +514,7 @@ function Experience({
                   style={{
                     margin: "3px 0 0",
                     color: "#94a3b8",
-                    fontSize: 8,
+                    fontSize: 12,
                   }}
                 >
                   {item.location}
@@ -526,7 +526,7 @@ function Experience({
                   style={{
                     margin: "7px 0 0",
                     color: "#475569",
-                    fontSize: 9,
+                    fontSize: 13,
                     lineHeight: 1.6,
                     whiteSpace: "pre-line",
                   }}
@@ -596,7 +596,7 @@ function Education({
                     style={{
                       margin: 0,
                       color: "#0f172a",
-                      fontSize: 10,
+                      fontSize: 14,
                       fontWeight: 800,
                     }}
                   >
@@ -609,7 +609,7 @@ function Education({
                     style={{
                       margin: "3px 0 0",
                       color: accent,
-                      fontSize: 9,
+                      fontSize: 13,
                       fontWeight: 700,
                     }}
                   >
@@ -622,7 +622,7 @@ function Education({
                 <span
                   style={{
                     color: "#64748b",
-                    fontSize: 8,
+                    fontSize: 12,
                     whiteSpace: "nowrap",
                     flexShrink: 0,
                   }}
@@ -638,7 +638,7 @@ function Education({
                   style={{
                     margin: "3px 0 0",
                     color: "#94a3b8",
-                    fontSize: 8,
+                    fontSize: 12,
                   }}
                 >
                   {item.location}
@@ -650,7 +650,7 @@ function Education({
                   style={{
                     margin: "6px 0 0",
                     color: "#475569",
-                    fontSize: 9,
+                    fontSize: 13,
                     lineHeight: 1.5,
                   }}
                 >
@@ -702,7 +702,7 @@ function Skills({
             margin: 0,
             paddingLeft: 16,
             color: "#475569",
-            fontSize: 9,
+            fontSize: 13,
             lineHeight: 1.8,
           }}
         >
@@ -733,7 +733,7 @@ function Skills({
                     : 4,
                 background: `${accent}12`,
                 color: accent,
-                fontSize: 8,
+                fontSize: 12,
                 fontWeight: 700,
               }}
             >
@@ -802,7 +802,7 @@ function Projects({
                 style={{
                   margin: 0,
                   color: "#0f172a",
-                  fontSize: 10,
+                  fontSize: 14,
                   fontWeight: 800,
                 }}
               >
@@ -814,7 +814,7 @@ function Projects({
                   style={{
                     margin: "3px 0",
                     color: accent,
-                    fontSize: 8,
+                    fontSize: 12,
                     fontWeight: 700,
                   }}
                 >
@@ -827,7 +827,7 @@ function Projects({
                   style={{
                     margin: 0,
                     color: "#475569",
-                    fontSize: 9,
+                    fontSize: 13,
                     lineHeight: 1.5,
                   }}
                 >
@@ -882,7 +882,7 @@ function Languages({
                 justifyContent:
                   "space-between",
                 gap: 10,
-                fontSize: 9,
+                fontSize: 13,
               }}
             >
               <span
@@ -961,7 +961,7 @@ function ProfessionalTemplate({
             style={{
               margin: "6px 0 0",
               color: accent,
-              fontSize: 13,
+              fontSize: 15,
               fontWeight: 700,
             }}
           >
@@ -1055,7 +1055,7 @@ function ModernTemplate({
           <p
             style={{
               margin: "6px 0 0",
-              fontSize: 13,
+              fontSize: 15,
               opacity: 0.9,
             }}
           >
@@ -1066,7 +1066,7 @@ function ModernTemplate({
           <div
             style={{
               marginTop: 9,
-              fontSize: 8,
+              fontSize: 12,
               opacity: 0.8,
             }}
           >
@@ -1163,7 +1163,7 @@ function MinimalTemplate({
         <p
           style={{
             margin: "7px 0",
-            fontSize: 11,
+            fontSize: 15,
             color: "#64748b",
           }}
         >
@@ -1261,7 +1261,7 @@ function CreativeTemplate({
         <p
           style={{
             margin: 0,
-            fontSize: 10,
+            fontSize: 13,
             opacity: 0.85,
           }}
         >
@@ -1272,7 +1272,7 @@ function CreativeTemplate({
         <div
           style={{
             marginTop: 25,
-            fontSize: 8,
+            fontSize: 12,
             lineHeight: 1.9,
             opacity: 0.85,
           }}
@@ -1301,7 +1301,7 @@ function CreativeTemplate({
           >
             <h2
               style={{
-                fontSize: 10,
+                fontSize: 14,
                 letterSpacing: 1,
                 textTransform:
                   "uppercase",
@@ -1316,7 +1316,7 @@ function CreativeTemplate({
                 <div
                   key={`${skill}-${index}`}
                   style={{
-                    fontSize: 8,
+                    fontSize: 12,
                     padding: "5px 0",
                     borderBottom:
                       "1px solid rgba(255,255,255,0.2)",
@@ -1405,7 +1405,7 @@ function ExecutiveTemplate({
           style={{
             margin: "7px 0",
             color: accent,
-            fontSize: 12,
+            fontSize: 15,
             fontWeight: 700,
           }}
         >
@@ -1488,7 +1488,7 @@ function TechTemplate({
           <div
             style={{
               color: accent,
-              fontSize: 8,
+              fontSize: 11,
               fontWeight: 800,
               letterSpacing: 2,
             }}
@@ -1511,7 +1511,7 @@ function TechTemplate({
             style={{
               margin: 0,
               color: "#475569",
-              fontSize: 11,
+              fontSize: 14,
             }}
           >
             {cv.title ||
@@ -1611,7 +1611,7 @@ function CorporateTemplate({
             style={{
               margin: "5px 0",
               color: accent,
-              fontSize: 11,
+              fontSize: 14,
               fontWeight: 700,
             }}
           >
@@ -1712,7 +1712,7 @@ function ElegantTemplate({
           style={{
             margin: 0,
             color: accent,
-            fontSize: 11,
+            fontSize: 14,
             fontStyle: "italic",
           }}
         >
@@ -1797,7 +1797,7 @@ function AcademicTemplate({
           style={{
             margin: "5px 0",
             color: accent,
-            fontSize: 11,
+            fontSize: 14,
             fontWeight: 700,
           }}
         >
@@ -1893,7 +1893,7 @@ function StudentTemplate({
             style={{
               margin: "5px 0",
               color: accent,
-              fontSize: 11,
+              fontSize: 14,
               fontWeight: 700,
             }}
           >
