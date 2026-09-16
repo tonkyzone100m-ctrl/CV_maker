@@ -17,5 +17,5 @@ COPY . .
 
 EXPOSE 5000
 
-# Entry point pointing to your server.js inside src
+# ✅ Combined command: Runs migrations first, then starts your server from src/server.js
 CMD ["sh", "-c", "npx prisma migrate deploy && node src/server.js"]
